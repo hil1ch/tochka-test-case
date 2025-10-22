@@ -1,0 +1,23 @@
+.info {
+    text-align: start;
+    border: 1px solid var(--border-color);
+    border-radius: 25px;
+    padding: 20px;
+    background-color: #fff;
+}
+
+.info-heading {
+    margin: 0 0 10px 0;
+    font-weight: 600;
+}
+
+.rules-list {
+    padding-left: 17px;
+    margin: 0;
+}
+
+.rules-item {
+    font-size: 14px;
+    color: var(--text-secondary-color);
+    margin: 5px 0;
+}
