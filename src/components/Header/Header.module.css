@@ -1,0 +1,47 @@
+.header {
+    background-color: #fff;
+    width: 100vw;
+    border-radius: 25px;
+    padding: 15px;
+}
+
+.heading {
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.step-by {
+    color: var(--text-secondary-color);
+}
+
+.players {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.player {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.ball {
+    width: 20px;
+    height: 20px;
+    /* background-color: rgb(251, 202, 96); */
+    background-color: rgb(255, 122, 122);
+    border-radius: 50%;
+}
+
+.active {
+    padding: 7px;
+    background-color: rgb(253, 207, 207);
+    /* background-color: rgb(255, 234, 187); */
+    border-radius: 20px;
+}
+
