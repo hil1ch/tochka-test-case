@@ -1,15 +1,13 @@
 import "./App.css";
 import { Board } from "./components/Board/Board";
-import { Header } from "./components/Header/Header";
-import { Info } from "./components/Info/Info";
+import { RightPanel } from "./components/RightPanel/RightPanel";
 
 function App() {
   return (
-    <>
-      <Header />
+    <div style={{ display: "flex", gap: "20px" }}>
       <Board />
-      <Info />
-    </>
+      <RightPanel />
+    </div>
   );
 }
 

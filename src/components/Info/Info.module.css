@@ -1,8 +1,7 @@
 .info {
-    text-align: start;
-    border: 1px solid var(--border-color);
+    text-align: justify;
     border-radius: 25px;
-    padding: 20px;
+    padding: 25px;
     background-color: #fff;
 }
 
