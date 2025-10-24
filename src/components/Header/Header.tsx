@@ -10,11 +10,12 @@ export function Header() {
       <span className={styles['step-by']}>Ход игрока:</span>
       <div className={styles["players"]}>
         <div className={styles['player']}>
-          <div className={styles["ball"]}></div>
+          <div className={styles["mark"]}></div>
           <span>Игрок 1</span>
         </div>
+        <span className={styles['timer']}>0:15</span>
         <div className={cn(styles['player'], styles['active'])}>
-          <div className={styles["ball"]}></div>
+          <div className={styles["mark"]}></div>
           <span>Игрок 2</span>
         </div>
       </div>

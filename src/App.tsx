@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <Header />
-      <Board>Игровое поле</Board>
+      <Board />
       <Info />
     </>
   );

@@ -1,8 +1,8 @@
 .header {
     background-color: #fff;
-    width: 100vw;
     border-radius: 25px;
     padding: 15px;
+    margin-bottom: 20px;
 }
 
 .heading {
@@ -18,7 +18,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 100px;
+    gap: 50px;
     margin-bottom: 20px;
     margin-top: 10px;
     font-weight: 500;
@@ -30,12 +30,16 @@
     gap: 5px;
 }
 
-.ball {
+.mark {
     width: 20px;
     height: 20px;
     /* background-color: rgb(251, 202, 96); */
     background-color: rgb(255, 122, 122);
     border-radius: 50%;
+}
+
+.timer {
+    font-size: 24px;
 }
 
 .active {
