@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import styles from './Info.module.css';
 
 const rules = [
@@ -6,7 +7,7 @@ const rules = [
     'Побеждает тот, кто первым собрал 4 фишки подряд по горизонтали, вертикали или диагонали'
 ]
 
-export function Info() {
+function Info() {
     return (
         <div className={styles['info']}>
             <h4 className={styles['info-heading']}>Правила игры:</h4>
@@ -18,3 +19,5 @@ export function Info() {
         </div>
     )
 }
+
+export default memo(Info);
