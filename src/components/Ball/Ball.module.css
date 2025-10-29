@@ -1,8 +1,9 @@
 .ball {
-    width: 4rem;
-    height: 4rem;
+    width: 4.3rem;
+    height: 4.3rem;
     border-radius: 50%;
     transition: all 0.3s ease;
+    animation: drop 1s ease 0s 1 normal forwards;
 }
 
 .player_1 {
@@ -16,6 +17,52 @@
 .winning {
     animation: pulse-win 1s ease-in-out infinite;
     box-shadow: 0 0 0 4px white, var(--shadow-piece);
+}
+
+@keyframes drop {
+	0% {
+		animation-timing-function: ease-in;
+		opacity: 1;
+		transform: translateY(-45px);
+	}
+
+	24% {
+		opacity: 1;
+	}
+
+	40% {
+		animation-timing-function: ease-in;
+		transform: translateY(-24px);
+	}
+
+	65% {
+		animation-timing-function: ease-in;
+		transform: translateY(-12px);
+	}
+
+	82% {
+		animation-timing-function: ease-in;
+		transform: translateY(-6px);
+	}
+
+	93% {
+		animation-timing-function: ease-in;
+		transform: translateY(-4px);
+	}
+
+	25%,
+	55%,
+	75%,
+	87% {
+		animation-timing-function: ease-out;
+		transform: translateY(0px);
+	}
+
+	100% {
+		animation-timing-function: ease-out;
+		opacity: 1;
+		transform: translateY(0px);
+	}
 }
 
 @keyframes pulse-win {
