@@ -4,3 +4,25 @@
     border-radius: 50%;
     transition: all 0.3s ease;
 }
+
+.player_1 {
+    background-color: var(--player1-color);
+}
+
+.player_2 {
+    background-color: var(--player2-color);
+}
+
+.winning {
+    animation: pulse-win 1s ease-in-out infinite;
+    box-shadow: 0 0 0 4px white, var(--shadow-piece);
+}
+
+@keyframes pulse-win {
+    0%, 100% { 
+        transform: scale(1); 
+    }
+    50% { 
+        transform: scale(1.1); 
+    }
+}

@@ -12,6 +12,12 @@
   --text-secondary-color: #5B5B5E;
   --background-color: #f2f3f5;
   --white-color: #fff;
+
+  --player1-color: rgb(255, 122, 122); 
+  --player2-color: rgb(251, 202, 96);
+
+  --player1-bg-color: rgb(253, 207, 207);
+  --player2-bg-color: rgb(255, 234, 187);
 }
 
 body {

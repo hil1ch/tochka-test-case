@@ -26,14 +26,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    gap: 8px;
 }
 
-.mark {
-    width: 20px;
-    height: 20px;
-    /* background-color: rgb(251, 202, 96); */
-    background-color: rgb(255, 122, 122);
+.player1-mark {
+    width: 25px;
+    height: 25px;
+    background-color: var(--player1-color);
+    border-radius: 50%;
+}
+
+.player2-mark {
+    width: 25px;
+    height: 25px;
+    background-color: var(--player2-color);
     border-radius: 50%;
 }
 
@@ -41,10 +47,15 @@
     font-size: 24px;
 }
 
-.active {
+.player1_active {
     padding: 7px;
-    background-color: rgb(253, 207, 207);
-    /* background-color: rgb(255, 234, 187); */
+    background-color: var(--player1-bg-color);
+    border-radius: 20px;
+}
+
+.player2_active {
+    padding: 7px;
+    background-color: var(--player2-bg-color);
     border-radius: 20px;
 }
 

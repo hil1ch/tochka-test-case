@@ -1,27 +1,52 @@
 import styles from "./Board.module.css";
-import { useState } from "react";
-import { BOARD_SETTINGS } from "../../constants/board-settings";
+import { useEffect } from "react";
+import { useGame } from "../../context/GameContext";
 import { Ball } from "../Ball/Ball";
-import type { Player } from "../../types/types";
 import { Cell } from "../Cell/Cell";
+import { validator } from "../../utils/validator";
 
 export function Board() {
-  const [board, setBoard] = useState<(Player | null)[][]>(
-    Array(BOARD_SETTINGS.rows)
-      .fill(null)
-      .map(() => Array(BOARD_SETTINGS.columns).fill(null))
-  );
+  const {
+    board,
+    handleCellClick,
+    isWinningPosition,
+    moves,
+    setGameOver,
+    setWinPositions,
+  } = useGame();
+
+  useEffect(() => {
+    if (moves.length === 0) return;
+    
+    const result = validator(moves);
+    const lastStep = result[`step_${moves.length}`];
+
+    if (lastStep.board_state === "win" && lastStep.winner) {
+      setGameOver(true);
+      setWinPositions(lastStep.winner?.positions);
+    } else if (lastStep.board_state === "draw") {
+      setGameOver(true);
+    }
+  }, [moves, setGameOver, setWinPositions]);
 
   return (
     <div className={styles["board"]}>
       <div className={styles["board-inner"]}>
-        {board.map((row, rowId) => (
-            row.map((cell, colId) => (
-                <Cell key={`${rowId}-${colId}`}>
-                    {cell && <Ball />}
-                </Cell>
-            ))
-        ))}
+        {board.map((row, rowId) =>
+          row.map((cell, colId) => (
+            <Cell
+              key={`${rowId}-${colId}`}
+              onClick={() => handleCellClick(colId)}
+            >
+              {cell && (
+                <Ball
+                  player={cell}
+                  isWinning={isWinningPosition(rowId, colId)}
+                />
+              )}
+            </Cell>
+          ))
+        )}
       </div>
     </div>
   );

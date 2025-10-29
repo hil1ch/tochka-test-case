@@ -4,11 +4,12 @@ import cn from 'classnames';
 
 interface ICellProps {
     children: ReactNode
+    onClick: () => void
 }
 
-export function Cell({children}: ICellProps) {
+export function Cell({children, onClick}: ICellProps) {
     return (
-        <div className={cn(styles['cell'], styles['active'])}>
+        <div className={cn(styles['cell'], styles['active'])} onClick={onClick}>
             {children}
         </div>
     )
