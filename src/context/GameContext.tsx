@@ -9,11 +9,18 @@ interface IGameContext {
   currentPlayer: Player;
   gameOver: boolean;
   winPositions: Position[];
+  winModal: boolean;
+  drawModal: boolean;
+  winner: Player | null;
   isWinningPosition: (row: number, column: number) => boolean;
   resetGame: () => void;
   handleCellClick: (column: number) => void;
   setGameOver: (gameOver: boolean) => void;
   setWinPositions: (winPositions: Position[]) => void;
+  getWinnerName: (winner: Player | null) => string;
+  setWinModal: (value: boolean) => void;
+  setDrawModal: (value: boolean) => void;
+  setWinner: (winner: Player | null) => void;
 }
 
 const GameContext = createContext<IGameContext | undefined>(undefined);
@@ -28,6 +35,9 @@ export function GameProvider({ children }: { children: ReactNode }) {
   const [currentPlayer, setCurrentPlayer] = useState<Player>("player_1");
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [winPositions, setWinPositions] = useState<Position[]>([]);
+  const [winModal, setWinModal] = useState<boolean>(false);
+  const [drawModal, setDrawModal] = useState<boolean>(false);
+  const [winner, setWinner] = useState<Player | null>(null);
 
   // Сброс игры
   const resetGame = () => {
@@ -40,6 +50,9 @@ export function GameProvider({ children }: { children: ReactNode }) {
     setCurrentPlayer("player_1");
     setGameOver(false);
     setWinPositions([]);
+    setWinModal(false);
+    setDrawModal(false);
+    setWinner(null);
   };
 
   // Клик по ячейке
@@ -65,17 +78,28 @@ export function GameProvider({ children }: { children: ReactNode }) {
     return winPositions.some(([r, c]) => r === row && c === column);
   };
 
+  const getWinnerName = (winner: Player | null) => {
+    return winner === 'player_1' ? 'Игрок 1' : 'Игрок 2'
+  }
+
   const value = {
     board,
     moves,
     currentPlayer,
     gameOver,
     winPositions,
+    winModal,
+    drawModal,
+    winner,
+    setWinner,
     resetGame,
     handleCellClick,
     isWinningPosition,
     setGameOver,
-    setWinPositions
+    setWinPositions,
+    getWinnerName,
+    setWinModal,
+    setDrawModal
   };
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>;
 }

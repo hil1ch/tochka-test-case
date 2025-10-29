@@ -20,7 +20,6 @@ export function Header() {
           <div className={styles["player1-mark"]}></div>
           <span>Игрок 1</span>
         </div>
-        <span className={styles["timer"]}>0:15</span>
         <div
           className={cn(styles["player"], {
             [styles["player2_active"]]: currentPlayer === "player_2" && !gameOver,

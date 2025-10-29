@@ -2,6 +2,10 @@
     background-color: #fff;
     border-radius: 25px;
     padding: 25px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .heading {
@@ -16,9 +20,8 @@
 .players {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
     margin-bottom: 20px;
-    margin-top: 20px;
     font-weight: 500;
 }
 
@@ -41,10 +44,6 @@
     height: 25px;
     background-color: var(--player2-color);
     border-radius: 50%;
-}
-
-.timer {
-    font-size: 24px;
 }
 
 .player1_active {
