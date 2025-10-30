@@ -19,3 +19,9 @@ export interface IGameProccess {
 export interface IGameSteps {
     [key: `step_${number}`]: IGameProccess
 }
+
+export interface IScore {
+    player1: number;
+    player2: number;
+    draws: number;
+}

@@ -40,3 +40,16 @@
     font-size: 18px;
     font-weight: 600;
 }
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.actions button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

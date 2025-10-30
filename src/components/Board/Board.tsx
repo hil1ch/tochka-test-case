@@ -5,6 +5,7 @@ import { Ball } from "../Ball/Ball";
 import { Cell } from "../Cell/Cell";
 import { validator } from "../../utils/validator";
 import { Modal } from "../UI/Modal/Modal";
+import { RiArrowRightLine, RiResetLeftFill } from "react-icons/ri";
 
 export function Board() {
   const {
@@ -22,6 +23,8 @@ export function Board() {
     getWinnerName,
     setWinner,
     winner,
+    updateScore,
+    continueGame,
   } = useGame();
 
   useEffect(() => {
@@ -35,9 +38,11 @@ export function Board() {
       setWinPositions(lastStep.winner?.positions);
       setWinner(lastStep.winner.who);
       setWinModal(true);
+      updateScore(lastStep.winner.who);
     } else if (lastStep.board_state === "draw") {
       setGameOver(true);
       setDrawModal(true);
+      updateScore("draw");
     }
   }, [
     moves,
@@ -46,6 +51,7 @@ export function Board() {
     setWinModal,
     setWinPositions,
     setWinner,
+    updateScore,
   ]);
 
   return (
@@ -68,13 +74,39 @@ export function Board() {
         )}
       </div>
       {winModal && (
-        <Modal onClick={resetGame}>
+        <Modal
+          actions={[
+            {
+              label: "Продолжить игру",
+              onClick: continueGame,
+              icon: <RiArrowRightLine />,
+            },
+            {
+              label: "Новая игра",
+              onClick: resetGame,
+              icon: <RiResetLeftFill />,
+            },
+          ]}
+        >
           <h2>🎉 Победа! 🎉</h2>
           {`${getWinnerName(winner)} выиграл!`}
         </Modal>
       )}
       {drawModal && (
-        <Modal onClick={resetGame}>
+        <Modal
+          actions={[
+            {
+              label: "Продолжить игру",
+              onClick: continueGame,
+              icon: <RiArrowRightLine />,
+            },
+            {
+              label: "Новая игра",
+              onClick: resetGame,
+              icon: <RiResetLeftFill />,
+            },
+          ]}
+        >
           <h2>🤝 Ничья! 🤝</h2>
           <p>Все клетки заполнены, но победителя нет.</p>
           <p>Попробуйте сыграть еще раз!</p>

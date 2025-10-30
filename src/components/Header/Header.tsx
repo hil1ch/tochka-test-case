@@ -5,7 +5,7 @@ import { RiResetLeftFill } from "react-icons/ri";
 import { useGame } from "../../context/GameContext";
 
 export function Header() {
-  const { currentPlayer, gameOver, resetGame } = useGame();
+  const { currentPlayer, gameOver, resetGame, score } = useGame();
 
   return (
     <div className={styles["header"]}>
@@ -20,6 +20,7 @@ export function Header() {
           <div className={styles["player1-mark"]}></div>
           <span>Игрок 1</span>
         </div>
+        <span className={styles['score']}>{`${score.player1}:${score.draws}:${score.player2}`}</span>
         <div
           className={cn(styles["player"], {
             [styles["player2_active"]]: currentPlayer === "player_2" && !gameOver,

@@ -1,5 +1,12 @@
-import { createContext, useState, useContext, type ReactNode } from "react";
-import type { Position, Player } from "../types/types";
+import {
+  createContext,
+  useState,
+  useContext,
+  type ReactNode,
+  useEffect,
+  useCallback,
+} from "react";
+import type { Position, Player, IScore } from "../types/types";
 import { BOARD_SETTINGS } from "../constants/board-settings";
 import { findTheLowestCell } from "../utils/findTheLowestCell";
 
@@ -12,6 +19,7 @@ interface IGameContext {
   winModal: boolean;
   drawModal: boolean;
   winner: Player | null;
+  score: IScore;
   isWinningPosition: (row: number, column: number) => boolean;
   resetGame: () => void;
   handleCellClick: (column: number) => void;
@@ -21,7 +29,11 @@ interface IGameContext {
   setWinModal: (value: boolean) => void;
   setDrawModal: (value: boolean) => void;
   setWinner: (winner: Player | null) => void;
+  updateScore: (winner: Player | "draw") => void;
+  continueGame: () => void;
 }
+
+const SCORE_STORAGE_KEY = "score";
 
 const GameContext = createContext<IGameContext | undefined>(undefined);
 
@@ -38,6 +50,38 @@ export function GameProvider({ children }: { children: ReactNode }) {
   const [winModal, setWinModal] = useState<boolean>(false);
   const [drawModal, setDrawModal] = useState<boolean>(false);
   const [winner, setWinner] = useState<Player | null>(null);
+  const [score, setScore] = useState<IScore>(() => {
+    try {
+      const savedScore = localStorage.getItem(SCORE_STORAGE_KEY);
+      if (savedScore) {
+        return JSON.parse(savedScore);
+      }
+    } catch (error) {
+      console.error("Error loading score from localStorage:", error);
+    }
+    return { player1: 0, player2: 0, draws: 0 };
+  });
+
+  // Сохранение счета в localStorage
+  useEffect(() => {
+    localStorage.setItem(SCORE_STORAGE_KEY, JSON.stringify(score));
+  }, [score]);
+
+
+  // Обновление счета
+  const updateScore = useCallback((winner: Player | "draw") => {
+    setScore((prevScore) => {
+      const newScore = { ...prevScore };
+      if (winner === "player_1") {
+        newScore.player1 += 1;
+      } else if (winner === "player_2") {
+        newScore.player2 += 1;
+      } else if (winner === "draw") {
+        newScore.draws += 1;
+      }
+      return newScore;
+    });
+  }, []);
 
   // Сброс игры
   const resetGame = () => {
@@ -53,17 +97,30 @@ export function GameProvider({ children }: { children: ReactNode }) {
     setWinModal(false);
     setDrawModal(false);
     setWinner(null);
+    setScore({ player1: 0, player2: 0, draws: 0 })
   };
+
+  // Продолжение игры с сохранением счета
+  const continueGame = () => {
+    setMoves([]);
+    setBoard(
+      Array(BOARD_SETTINGS.rows)
+        .fill(null)
+        .map(() => Array(BOARD_SETTINGS.columns).fill(null))
+    );
+    setCurrentPlayer("player_1");
+    setGameOver(false);
+    setWinPositions([]);
+    setWinModal(false);
+    setDrawModal(false);
+    setWinner(null);
+  }
 
   // Клик по ячейке
   const handleCellClick = (column: number) => {
     if (gameOver) return;
 
-    const row = findTheLowestCell(
-      board,
-      BOARD_SETTINGS.rows,
-      column
-    );
+    const row = findTheLowestCell(board, BOARD_SETTINGS.rows, column);
 
     const updatedBoard = board.map((r) => [...r]);
     updatedBoard[row][column] = currentPlayer;
@@ -79,8 +136,8 @@ export function GameProvider({ children }: { children: ReactNode }) {
   };
 
   const getWinnerName = (winner: Player | null) => {
-    return winner === 'player_1' ? 'Игрок 1' : 'Игрок 2'
-  }
+    return winner === "player_1" ? "Игрок 1" : "Игрок 2";
+  };
 
   const value = {
     board,
@@ -91,6 +148,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
     winModal,
     drawModal,
     winner,
+    score,
     setWinner,
     resetGame,
     handleCellClick,
@@ -99,7 +157,9 @@ export function GameProvider({ children }: { children: ReactNode }) {
     setWinPositions,
     getWinnerName,
     setWinModal,
-    setDrawModal
+    setDrawModal,
+    updateScore,
+    continueGame
   };
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>;
 }
